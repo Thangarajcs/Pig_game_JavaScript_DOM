@@ -3,7 +3,7 @@
 /******************
  * GLOBAL VARIABLES
  */
-var activeplayer,roundscore,gameplay,score=[];
+var activeplayer,roundscore,gameplay,score;
 
 //whenever document loaded we are calling this function to make the content to default value
 start();
@@ -22,6 +22,7 @@ if(gameplay){
     if(diceroll!=1){
         roundscore+=diceroll;
         document.querySelector('#current-'+activeplayer).textContent=roundscore;
+        
     }
 
     //if dice value is 1 then control should be passed to the next player
@@ -37,12 +38,13 @@ if(gameplay){
 /**********
  * HOLD THE CURRENT POINTS TO THE GLOBAL SCORE
  */
-document.querySelector('.btn-hold').addEventListener('click',()=>{
+document.querySelector('.btn-hold').addEventListener('click',function(){
     if(gameplay){
-
+        
+        score[activeplayer]+= roundscore;
+    
         /*when user doesnt want to lose their round score they can hold their value in global score.
         But once if u click hold after updating current player global score control will be passed to the next player?*/
-        score[activeplayer]=document.querySelector('#current-'+activeplayer).textContent;
         document.querySelector('#score-'+activeplayer).textContent=score[activeplayer];
     
         /*before passing the control if the current player global score is more than 100 
@@ -90,7 +92,7 @@ function nextplayer(){
  */
 function start(){
     activeplayer=0;
-    score[0,0];
+    score=[0,0];
     gameplay=true;
     roundscore=0;
     document.querySelector('.dice').style.display = 'none';
